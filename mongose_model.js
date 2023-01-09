@@ -1,6 +1,10 @@
 const mongoos=require('mongoose');
 const Productscheme=new mongoos.Schema({
+    username:String,
+    password:String,
     application:Number,
-    title:String
+    address:String,
+    title:String,
+    remarks:String
 })
-module.exports=mongoos.model('mcol',Productscheme);
+module.exports=mongoos.model('test_col',Productscheme);
