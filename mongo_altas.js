@@ -1,8 +1,11 @@
+const { application } = require('express');
 const express=require('express');
 require('./config');
 const model=require('./mongose_model');
-
+const cors = require('cors');
 const app=express();
+// app.use(cors({origin: true, credentials: true}));
+app.use(cors());
 
 app.use(express.json());
 
@@ -43,8 +46,14 @@ app.use(express.json());
 //   }
   
 // });
-
-app.get("/",async (req,resp) =>{
+  // req.header('Access-Control-Allow-Origin', '*');
+  // req.header('Content-Type','application/json');
+  // req.header('Access-Control-Allow-Origin', '*',);
+  // req.header('Access-Control-Allow-Methods', 'POST, PUT, PATCH, GET, DELETE, OPTIONS');
+  // req.header( 'Access-Control-Allow-Headers','*');
+    
+app.get("/a",async (req,resp) =>{
+  resp.header( "Access-Control-Allow-Origin" );
   let data = await model.find();
   resp.send(data);
 });
@@ -76,5 +85,8 @@ app.put("/upd/:_id",async (req,resp) => {
 
 })
 
-
-app.listen(5001);
+const PORT = 3456;
+// app.listen(PORT);
+app.listen(PORT, function () {
+  console.log(`CORS-enabled web server listening on port ${PORT}`);
+});
