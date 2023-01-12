@@ -5,7 +5,17 @@ const model=require('./mongose_model');
 const cors = require('cors');
 const app=express();
 // app.use(cors({origin: true, credentials: true}));
-app.use(cors());
+// app.use(cors());
+
+app.use((req, resp, next) => {
+  resp.header('Access-Control-Allow-Origin', '*');
+  resp.header('Access-Control-Allow-Headers', '*');
+  resp.header("Access-Control-Allow-Origin", "*");
+  resp.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  resp.header("Access-Control-Allow-Headers", "x-access-token, Origin, X-Requested-With, Content-Type, Accept");
+
+  next();
+});
 
 app.use(express.json());
 
@@ -53,7 +63,7 @@ app.use(express.json());
   // req.header( 'Access-Control-Allow-Headers','*');
     
 app.get("/a",async (req,resp) =>{
-  resp.header( "Access-Control-Allow-Origin" );
+
   let data = await model.find();
   resp.send(data);
 });
