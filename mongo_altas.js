@@ -1,4 +1,4 @@
-const { application } = require('express');
+const { application, json } = require('express');
 const express=require('express');
 require('./config');
 const model=require('./mongose_model');
@@ -68,20 +68,40 @@ app.get("/a",async (req,resp) =>{
   resp.send(data);
 });
 
-app.post("/crt",async (req,resp) =>{
+app.get("/crt",async (req,resp) =>{
 
   let data = new model(req.body);
   let result= await data.save();
   console.log(result);
   resp.send(result);
- 
+});
+
+app.post("/lgapi",async (req,resp) =>{
+  // emailx=JSON.stringify()
+  console.log({email:req.body.email})
+  console.log({password:req.body.password})
+  let data = await model.find({email:req.body.email});
+  if(data[0]['email']==req.body.email && data[0]['password']==req.body.password)
+  {
+    resp.send(data);
+  }
+  else{
+    resp.send("Credentials not Correct");
+  }
+
+});
+
+app.post("/snup",async (req,resp) =>{
+  let data = new model(req.body);
+  let result= await data.save();
+  resp.send(result);
 });
 
 app.delete("/del/:_id",async(req,resp)=>{
   let data=await model.deleteOne(req.params);
   resp.send(data);
 
-})
+});
 
 app.put("/upd/:_id",async (req,resp) => {
   console.log(req.params);

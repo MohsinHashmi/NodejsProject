@@ -12,4 +12,4 @@ async function dbConnect(){
     // let result = await collection.find({}).toArray();
     // console.log(result);
 }
-module.exports=dbConnect;
+module.exports=dbConnect;   

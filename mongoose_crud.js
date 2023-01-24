@@ -13,6 +13,9 @@ app.post("/crt",async (req,resp) =>{
 });
 
 
+
+
+
 app.get("/",async (req,resp) =>{
     let data = await model.find();
     resp.send(data);
